@@ -35,5 +35,11 @@
 6) Balance Inquiry(balanceOf function)
 ~ Retrieves the token balance of a specified address.
 
+7) Allow(allowance function)
+   ~ Retrieves the allowance amount that a spender is allowed to spend on behalf of a token owner.
+
+8) Approval(approve function)
+   ~ Allows the owner to approve a spender to spend a specified amount of tokens on their behalf.
+
 
 
