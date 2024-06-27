@@ -8,6 +8,7 @@
 (a) totalSupply: Dynamically tracks the total supply of tokens issued (increases with minting and decreases with burning).
 (b) balances: Mapping of addresses to their respective token balance.
 (c) allowed: Nested mapping to track allowances granted for transferring tokens on behalf of others.
+(d) Events: Emits events for Transfer and Approval actions.
 
 **Features:-**
 1) Constructor
