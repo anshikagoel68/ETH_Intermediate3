@@ -28,17 +28,12 @@
 ~ Ensures that the spender has been authorized by the fromAccount to transfer the specified amount.
 ~ Emits a Transfer event from the fromAccount to the recipient.
 
-5) Approval(approve function)
-~ Grants permission to a designated spender to withdraw tokens from the caller's account.
-~ Emits an Approval event indicating the amount approved and the spender's address.
-
-6) Burn(burn function)
+5) Burn(burn function)
 ~ Allows any token holder to burn a specific amount of their own tokens, thereby reducing the total supply.
 ~ Emits a Transfer event from the token holder to the zero address.
 
-7) Balance Inquiry(balanceOf function)
+6) Balance Inquiry(balanceOf function)
 ~ Retrieves the token balance of a specified address.
 
-8) Allowance Inquiry(allowance function)
-~ Retrieves the amount of tokens that an owner has allowed a spender to withdraw.
+
 
