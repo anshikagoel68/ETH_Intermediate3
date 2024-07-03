@@ -1,56 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 
-contract ERC20Token{
-    uint public totalSupply;
-    mapping (address=>uint)public balances;
-    mapping (address=>mapping(address=>uint))public allowed;
-    event Transfer(address indexed from,address indexed to,uint amount);
-    event Approval(address indexed owner,address indexed spender,uint amount);
-    address public owner;
-    constructor(){
-        owner=msg.sender;
-        totalSupply=0; 
+contract Token is ERC20{
+    address public owner; 
+    constructor()ERC20("ERC2O Token","OCET"){
+        owner=msg.sender; 
     }
-    function mint(address account, uint amount)public returns(bool){
-        require(msg.sender==owner,"Only the owner can mint tokens");
-        totalSupply+=amount;
-        balances[account]+=amount;
-        emit Transfer(address(0),account,amount);
-        return true;
+    function mintInitialSupply(uint256 initialSupply)public{
+        require(msg.sender== owner,"Only owner can mint initial supply");
+        require(totalSupply()==0,"Initial supply has already been minted");
+        _mint(owner,initialSupply); 
     }
-    function transfer(address account,uint amount)public returns(bool){
-        require(balances[msg.sender]>=amount,"Insufficient balance");
-        balances[msg.sender]-=amount;
-        balances[account]+= amount;
-        emit Transfer(msg.sender,account,amount);
-        return true;
+    function mint(address account,uint256 amount)public{
+        require(msg.sender==owner,"Only owner can mint");
+        _mint(account,amount); 
     }
-    function transferFrom(address fromAccount,address toAccount,uint amount)public returns(bool){
-        require(balances[fromAccount]>=amount,"Insufficient balance");
-        require(allowed[fromAccount][msg.sender]>=amount,"Insufficient allowance");
-        balances[fromAccount]-=amount;
-        balances[toAccount]+=amount;
-        allowed[fromAccount][msg.sender]-=amount;
-        emit Transfer(fromAccount,toAccount,amount);
-        return true;
-    }
-    function approve(address spender,uint amount) public returns(bool){
-        allowed[msg.sender][spender]=amount;
-        emit Approval(msg.sender,spender,amount);
-        return true;
-    }
-    function burn(uint amount)public returns(bool){
-        require(balances[msg.sender]>=amount,"Insufficient balance");
-        balances[msg.sender]-=amount;
-        totalSupply-=amount;
-        emit Transfer(msg.sender,address(0),amount);
-        return true;
-    }
-    function balanceOf(address _owner)public view returns(uint){
-        return balances[_owner];
-    }
-    function allowance(address _owner,address spender)public view returns(uint){
-        return allowed[_owner][spender];
+    function burn(address account,uint256 amount)public{
+        require(msg.sender == owner,"Only owner can burn");
+        _burn(account,amount); 
     }
 }
+
+
